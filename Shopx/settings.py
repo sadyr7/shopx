@@ -169,6 +169,9 @@ EMAIL_HOST_USER = 'tolomushev33@gmail.com'
 EMAIL_HOST_PASSWORD = 'ymiaghfkrwoelcgl'
 
 
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+
 #DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 

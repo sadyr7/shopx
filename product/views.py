@@ -9,8 +9,8 @@ from django.db.models import Avg, Count, Q
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from user_profiles.models import CustomUser
-from .FCMmanage import sendPush
 from datetime import datetime
+from .tasks import send_push_notification,send_push_notification_recall
 
 class ProductCreateApiView(CreateAPIView):
     queryset = Product.objects.all()
@@ -54,8 +54,21 @@ class RecallViewSet(GenericViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(user=request.user)
-        return Response(serializer.data)
-
+        
+        product = serializer.validated_data['product']
+        rating = serializer.validated_data['rating']
+        text = serializer.validated_data['text']    
+        print(request.user)
+        
+        title = f"Отзыв от {request.user.username} {datetime.utcnow()}\n{rating}\n{text}"
+        
+        whom = product.user.device_token
+        
+        send_push_notification_recall.delay(title, whom)
+        
+        return Response('Отзыв был отправлен продавцу')
+    
+    
     def retrieve(self, request, pk=None):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
@@ -109,19 +122,15 @@ class DiscountListView(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         instance = serializer.save()
-        all_tokens = CustomUser.objects.values_list('device_token',flat = True)
+        id = instance.id
 
-        message =+ f'{instance.product.name}\n'
-        message =+ f'{instance.price}\n'
-        message =+ f'{instance.discount_rate}\n'
+        all_tokens = list(CustomUser.objects.values_list('device_token', flat=True))
 
-        result = sendPush(title=f"Скидки на сегодня {datetime.utcnow()}",
-                    registration_token=list(all_tokens),
-                    msg = message
-                    ,
-                    )
-        return result
+        title = f"большая скидка в магазине {instance.product.user.market_name} {datetime.utcnow()}"
+        send_push_notification.delay(id, title, all_tokens)
+        
     
+
 class DiscountDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Discount.objects.all()
     serializer_class = DiscountSerializer
