@@ -147,6 +147,11 @@ class LogoutView(generics.GenericAPIView):
 
             # Также инвалидируем Access Token'ы пользователя
             OutstandingToken.objects.filter(user=request.user).delete()
+            
+            # Удаление device_token у пользователя
+            user = request.user
+            user.device_token = None
+            user.save()
 
             return Response("Successfully logged out.", status=status.HTTP_200_OK)
         except Exception as e:

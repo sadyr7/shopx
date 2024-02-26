@@ -13,7 +13,7 @@ class Product(models.Model):
     podcategory = models.ForeignKey(
         PodCategory, related_name="pod_products", on_delete=models.CASCADE
     )
-    user = models.ForeignKey(CustomUser,related_name='products', on_delete=models.CASCADE)
+    user = models.ForeignKey(SellerProfile,related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
     image = models.ImageField(upload_to="products/%Y/%m/%d", blank=True)
