@@ -57,13 +57,14 @@ class RecallViewSet(GenericViewSet):
         
         product = serializer.validated_data['product']
         rating = serializer.validated_data['rating']
-        text = serializer.validated_data['text']
+        text = serializer.validated_data['text']    
+        print(request.user)
         
         title = f"Отзыв от {request.user.username} {datetime.utcnow()}\n{rating}\n{text}"
         
         whom = product.user.device_token
         
-        send_push_notification_recall(title, whom)
+        send_push_notification_recall.delay(title, whom)
         
         return Response('Отзыв был отправлен продавцу')
     
@@ -122,10 +123,10 @@ class DiscountListView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
         id = instance.id
-        
-        all_tokens = CustomUser.objects.values_list('device_token',flat = True)
+
+        all_tokens = list(CustomUser.objects.values_list('device_token', flat=True))
+
         title = f"большая скидка в магазине {instance.product.user.market_name} {datetime.utcnow()}"
-        #token = 'c-BOW1AKX®:APA91bHBCtFhGtteH1r2y7c8gpUJpfrgDZYtncFmxZQht_wBDWk9Stdf78aMqUctKYU_01IkmMNW-KLP68_IhdZCM2WXCN4fU1XkoIVNCGTvBogzSpgt4IkveLbK7rNX7pQTfmP72MfV'
         send_push_notification.delay(id, title, all_tokens)
         
     

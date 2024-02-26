@@ -36,7 +36,7 @@ class UserVerifyRegisterCode(generics.UpdateAPIView):
 
 class ForgetPasswordSendCodeView(generics.UpdateAPIView):
     serializer_class = SendCodeSerializer
-
+    http_method_names = ['put',]
     def put(self, request, *args, **kwargs):
         email_or_phone = request.data.get("email_or_phone")
         return ChangePassword.send_email_code(email_or_phone=email_or_phone)
@@ -62,7 +62,7 @@ class ForgetPasswordView(generics.UpdateAPIView):
     serializer_class = ForgetPasswordSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-
+    http_method_names = ['patch',]
     def update(self, request, *args, **kwargs):
         
         result = ChangePassword.change_password_on_reset(self=self,request=request)
@@ -79,6 +79,7 @@ class UserResetPasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    http_method_names = ['patch',]
     def update(self, request, *args, **kwargs):
             result = ChangePassword.change_password_on_profile(request=request)
 
@@ -99,6 +100,7 @@ class ListProfileApi(generics.ListAPIView):
 class UpdateUserProfileApi(generics.UpdateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserProfileSerializer
+    http_method_names = ['patch',]
     permission_classes = [permissions.IsAuthenticated,]
     lookup_field = 'id'
 
@@ -118,6 +120,7 @@ class SellerListApiview(generics.ListAPIView):
 class SellerUpdateProfileApi(generics.UpdateAPIView):
     queryset = SellerProfile.objects.all()
     serializer_class = SellerProfileSerializer
+    http_method_names = ['patch',]
     permission_classes = [permissions.IsAuthenticated,]
     lookup_field = 'id'
 

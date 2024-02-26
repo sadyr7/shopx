@@ -1,4 +1,3 @@
-from celery import shared_task
 from .FCMmanage import sendPush
 from .models import Discount,Recall
 from rest_framework.response import Response
@@ -17,7 +16,7 @@ def send_push_notification(id, title, tokens):
 
     
     result = sendPush(title=title,
-                    registration_token=tokens.split(),
+                    registration_token=tokens,
                     msg = message
                     ,
                     )
