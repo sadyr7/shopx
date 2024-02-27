@@ -150,3 +150,11 @@ class MarketSerializer(serializers.ModelSerializer):
         model = SellerProfile
         fields = ('market_name','products', 'location_latitude',
                   'location_longitude', 'number', 'email_or_phone', 'is_verified','whatsapp_link','instagram_link','facebook_link','tiktok_link')
+
+
+
+class LogoutSerializer(serializers.Serializer):
+    refresh_token = serializers.CharField()
+
+    class Meta:
+        fields = ['refresh_token',]

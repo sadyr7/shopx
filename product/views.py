@@ -119,12 +119,17 @@ class LikeView(generics.RetrieveDestroyAPIView):
 class DiscountListView(generics.ListCreateAPIView):
     queryset = Discount.objects.all()
     serializer_class = DiscountSerializer
+
+    def post(self, request, *args, **kwargs):
+        print(request.user.username)
+        return super().post(request, *args, **kwargs)
     
     def perform_create(self, serializer):
         instance = serializer.save()
         id = instance.id
+        users_with_tokens = CustomUser.objects.exclude(device_token=None)
 
-        all_tokens = list(CustomUser.objects.values_list('device_token', flat=True))
+        all_tokens = list(users_with_tokens.values_list('device_token', flat=True))
 
         title = f"большая скидка в магазине {instance.product.user.market_name} {datetime.utcnow()}"
         send_push_notification.delay(id, title, all_tokens)

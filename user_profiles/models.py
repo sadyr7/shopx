@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .usermanager import CustomUserManager
 from .validators import validate_password_strength
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     GENDER_CHOICES = {
@@ -50,6 +51,7 @@ class SellerProfile(CustomUser):
     whatsapp_link = models.URLField()
     tiktok_link = models.URLField()
     facebook_link = models.URLField()
+
 
     def __str__(self) -> str:
         return f'Профиль продавца {self.username}'

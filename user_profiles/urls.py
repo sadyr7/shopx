@@ -25,5 +25,5 @@ urlpatterns = [
     path('seller-profile/update/<int:id>/', UpdateUserProfileApi.as_view(), name=''),
 
     path('market/', MarketListAPIView.as_view(), name=''),
-    path('logout/', LogoutView.as_view(), name=''),
+    #path('logout/', LogoutView.as_view(), name=''),
 ]
