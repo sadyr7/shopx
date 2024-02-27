@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Product, Recall,Discount
+from pythonProject.Shopx.product.models import Product, Recall,Discount,ViewedProduct
+
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -29,6 +30,24 @@ class RecallSerializer(serializers.ModelSerializer):
 
 
 class DiscountSerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(read_only=True)
+    discount_amount = serializers.DecimalField(max_digits=5, decimal_places=2)
+    discounted_price = serializers.SerializerMethodField()
+
     class Meta:
         model = Discount
-        fields = ['id', 'product', 'price', 'discount_rate']
+        fields = ['id', 'product', 'discount_amount', 'discounted_price']
+
+    def get_discounted_price(self, obj):
+
+        if obj.product:
+            discounted_price = obj.product.price - (obj.product.price * (obj.discount_amount / 100))
+            return discounted_price
+        else:
+            return None
+
+
+class ViewedProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ViewedProduct
+        fields = '__all__'

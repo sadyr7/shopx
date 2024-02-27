@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import *
+from pythonProject.Shopx.product.views import *
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -14,5 +14,8 @@ urlpatterns = [
     path("like/<int:pk>/", LikeView.as_view(), name="like"),
     path('recall-list/<int:pk>/', RecallListApiView.as_view(), name='recall-list'),
     path('', include(router.urls)),
+    path('viewed-products/', ViewedProductListCreate.as_view(), name='viewed-product-list'),
+    path('viewed-products/<int:pk>/', ViewedProductDetail.as_view(), name='viewed-product-detail'),
 ]
+
 

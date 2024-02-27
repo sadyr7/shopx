@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Recall,Discount
+from pythonProject.Shopx.product.models import Product, Recall,Discount,ViewedProduct
 
 
 admin.site.register(Recall)
@@ -39,3 +39,8 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Discount)
+
+class ViewedProductAdmin(admin.ModelAdmin):
+    list_display = ('user', 'product', 'viewed_at')
+
+admin.site.register(ViewedProduct, ViewedProductAdmin)

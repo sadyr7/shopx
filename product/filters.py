@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from .models import Product
+from pythonProject.Shopx.product.models import Product
 
 
 class CustomFilter(filters.FilterSet):
