@@ -2,8 +2,6 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework.pagination import PageNumberPagination
-from rest_framework_simplejwt.tokens import RefreshToken, OutstandingToken
-
 from .services import *
 from .serializers import *
 from drf_spectacular.utils import extend_schema
@@ -45,14 +43,27 @@ class ForgetPasswordSendCodeView(generics.UpdateAPIView):
 
 
 # апи для того чтобы сттать продавцом 
-class BecomeSellerView(generics.UpdateAPIView):
+class BecomeSellerView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def update(self, request, *args, **kwargs):
-        user = request.user
-        user.is_seller = True
-        user.save()
-        return Response("Вы успешно стали продавцом", status=status.HTTP_200_OK)
+    def post(self, request, *args, **kwargs):
+        user_id = request.user.id
+        user = CustomUser.objects.get(id=user_id)
+        username = user.username
+        email_or_phone = user.email_or_phone
+        password = user.password
+        is_active = user.is_active
+        number = user.number
+        user.delete()
+        new_seller = SellerProfile.objects.create(username=username,
+                                                  email_or_phone=email_or_phone,
+                                                  password=password,
+                                                  is_active=is_active,
+                                                  number = number,
+                                                  is_seller = True)
+        
+        new_seller.save()
+        return Response(f"Вы успешно стали продавцом{new_seller}", status=status.HTTP_200_OK)
 
 
 
@@ -140,22 +151,20 @@ class MarketListAPIView(generics.ListAPIView):
     pagination_class.page_size = 10
 
 
+class LogoutAPIView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
 
-class LogoutView(generics.GenericAPIView):
     def post(self, request):
-        try:
-            refresh_token = request.data["refresh_token"]
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-
-            # Также инвалидируем Access Token'ы пользователя
-            OutstandingToken.objects.filter(user=request.user).delete()
-            
-            # Удаление device_token у пользователя
-            user = request.user
-            user.device_token = None
-            user.save()
-
-            return Response("Successfully logged out.", status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+        refresh_token = request.data.get('refresh_token')
+        user = request.user
+        if refresh_token:
+            try:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+                user.device_token = None
+                user.save()
+                return Response({'message': 'Вы успешно вышли из системы.'}, status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'error': 'Недопустимый токен.'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'Токен не предоставлен.'}, status=status.HTTP_400_BAD_REQUEST)

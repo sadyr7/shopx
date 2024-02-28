@@ -20,7 +20,7 @@ class IsSeller(BasePermission):
     message = 'permission denied, you are not seller user'
 
     def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user
+        return request.user.is_authenticated and request.user.is_seller
 
     def has_object_permission(self, request, view, obj):
         return bool(obj.is_seller)
