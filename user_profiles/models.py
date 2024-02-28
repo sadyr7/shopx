@@ -54,7 +54,7 @@ class SellerProfile(CustomUser):
 
 
     def __str__(self) -> str:
-        return f'Профиль продавца {self.username}'
+        return f'Профиль продавца {self.email_or_phone}'
     
     class Meta:
         verbose_name = 'Продавец'
