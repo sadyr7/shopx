@@ -43,14 +43,27 @@ class ForgetPasswordSendCodeView(generics.UpdateAPIView):
 
 
 # апи для того чтобы сттать продавцом 
-class BecomeSellerView(generics.UpdateAPIView):
+class BecomeSellerView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def update(self, request, *args, **kwargs):
-        user = request.user
-        user.is_seller = True
-        user.save()
-        return Response("Вы успешно стали продавцом", status=status.HTTP_200_OK)
+    def post(self, request, *args, **kwargs):
+        user_id = request.user.id
+        user = CustomUser.objects.get(id=user_id)
+        username = user.username
+        email_or_phone = user.email_or_phone
+        password = user.password
+        is_active = user.is_active
+        number = user.number
+        user.delete()
+        new_seller = SellerProfile.objects.create(username=username,
+                                                  email_or_phone=email_or_phone,
+                                                  password=password,
+                                                  is_active=is_active,
+                                                  number = number,
+                                                  is_seller = True)
+        
+        new_seller.save()
+        return Response(f"Вы успешно стали продавцом{new_seller}", status=status.HTTP_200_OK)
 
 
 
