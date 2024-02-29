@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # lib
+    'channels',
     "twilio",
     "rest_framework",
     "rest_framework_simplejwt",
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_yasg",
     "djoser",
+    'notification',
     # app
     "Category",
     "app_comment",
@@ -98,7 +100,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "Shopx.wsgi.application"
+ASGI_APPLICATION = "Shopx.asgi.application"
 
 
 # Database
@@ -186,8 +188,20 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20
 }
 
+
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
     "AUTH_HEADER_TYPES": ("JWT",),
+}
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
 }

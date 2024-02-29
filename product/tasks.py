@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from Shopx.celery import app
 
+
+
 @app.task
 def send_push_notification(id, title, tokens):
 
