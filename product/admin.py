@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Recall,Discount
+from .models import Product, Recall
 
 
 admin.site.register(Recall)
@@ -38,4 +38,3 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(Discount)

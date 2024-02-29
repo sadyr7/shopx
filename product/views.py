@@ -7,22 +7,22 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django.db.models import Avg, Count, Q
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .serializers import ProductSerializer, RecallSerializer,DiscountSerializer
-from .models import Product, Recall, Like,Discount
+from .serializers import ProductSerializer, RecallSerializer
+from .models import Product, Recall, Like
 from .filters import CustomFilter
-from user_profiles.models import CustomUser
 from datetime import datetime
-from .tasks import send_push_notification,send_push_notification_recall
+from rest_framework import permissions
+from .tasks import send_push_notification_recall
 
 
 
 class ProductCreateApiView(CreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    # permission_classes = [IsSeller, ]
+    permission_classes = [permissions.AllowAny, ]
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
 
 
 class ProductListApiView(ListAPIView):
@@ -39,6 +39,12 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all().annotate(rating=Avg("recall__rating"), likes=Count('like'))
     serializer_class = ProductSerializer
     # permission_classes = [IsSeller, ]
+
+    def perform_update(self, serializer):
+        instance = serializer.instance
+        instance.price = serializer.apply_discount_to_price(instance.price, serializer.validated_data.get('discount', 0))
+        instance.save()
+
 
 
 class RecallListApiView(ListAPIView):
@@ -118,28 +124,3 @@ class LikeView(generics.RetrieveDestroyAPIView):
             return Response("Like is deleted")
         else:
             return Response("No Like")
-
-
-class DiscountListView(generics.ListCreateAPIView):
-    queryset = Discount.objects.all()
-    serializer_class = DiscountSerializer
-
-    def post(self, request, *args, **kwargs):
-        print(request.user.username)
-        return super().post(request, *args, **kwargs)
-    
-    def perform_create(self, serializer):
-        instance = serializer.save()
-        id = instance.id
-        users_with_tokens = CustomUser.objects.exclude(device_token=None)
-
-        all_tokens = list(users_with_tokens.values_list('device_token', flat=True))
-
-        title = f"большая скидка в магазине {instance.product.user.market_name} {datetime.utcnow()}"
-        send_push_notification.delay(id, title, all_tokens)
-        
-    
-
-class DiscountDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Discount.objects.all()
-    serializer_class = DiscountSerializer
