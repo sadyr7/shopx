@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Recall,ViewedProduct
-
+from .models import Product, Recall
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -27,10 +26,10 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = (
-        'id', 'name', 'slug', 'image', 'description', 'price', 'discount', 'available', 'location',
-        'created', 'updated', 'rating', 'likes')
-
-        read_only_fields = ('id', 'slug', 'user', 'created', 'updated')
+            'id', 'category', 'podcategory', 'user', 'name', 'slug', 'image', 'description', 'price', 'location', 'rating',
+            'available', 'created', 'updated', 'likes', 'discount'
+        )
+        read_only_fields = ('id', 'slug', 'created', 'updated')
 
 
 class RecallSerializer(serializers.ModelSerializer):
@@ -43,9 +42,5 @@ class RecallSerializer(serializers.ModelSerializer):
                         }
 
 
-class ViewedProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ViewedProduct
-        fields = '__all__'
 
 

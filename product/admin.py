@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Recall,ViewedProduct
+from .models import Product, Recall
 
 
 admin.site.register(Recall)
@@ -31,13 +31,10 @@ class PriceFilter(admin.SimpleListFilter):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ["id","name", "slug", "price", "available", "created", "updated"]
-    list_filter = ["available", "created", "updated"]
+    list_filter = ["available", "created", "updated", PriceFilter]
     list_editable = ["price", "available"]
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ["name"]
 
 
-class ViewedProductAdmin(admin.ModelAdmin):
-    list_display = ('user', 'product', 'viewed_at')
 
-admin.site.register(ViewedProduct, ViewedProductAdmin)
