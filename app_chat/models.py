@@ -1,19 +1,5 @@
 from django.db import models
 from user_profiles.models import CustomUser
-from solo.models import SingletonModel
-
-
-class SupportService(SingletonModel):
-    admin = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=15)
-    instagram_link = models.URLField()
-    whatsapp_link = models.URLField()
-    facebook_link = models.URLField()
-    telegram_token = models.CharField(max_length=50)
-    telegram_chat_id = models.CharField(max_length=15)
-
-    def __str__(self):
-        return "Служба поддержки"
 
 
 class Chat(models.Model):
@@ -32,6 +18,27 @@ class Message(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name="messages")
     recipient = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="received_messages")
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="sent_messages")
+    content = models.TextField()
+    is_read = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.recipient} - {self.timestamp}\n{self.sender} - {self.timestamp}"
+
+
+class ChatSupport(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="chat_user")
+    admin = models.ManyToManyField(CustomUser, related_name="admin")
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Chat {self.pk}"
+
+
+class MessageSupport(models.Model):
+    chat = models.ForeignKey(ChatSupport, on_delete=models.CASCADE, related_name="messages_support")
+    sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="sent_messages_support")
+    recipient = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="received_messages_support")
     content = models.TextField()
     is_read = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now=True)
