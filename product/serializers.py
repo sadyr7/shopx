@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Product, Recall,Discount
+from .models import Product, Recall,ViewedProduct
+
+from drf_spectacular.utils import extend_schema_field
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -10,9 +12,9 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = (
-            'id', 'category', 'podcategory', 'user', 'name', 'slug', 'image', 'description', 'price', 'location', 'rating',
-            'available', 'created', 'updated', 'likes'
-        )
+        'id', 'name', 'slug', 'image', 'description', 'price', 'discount', 'discounted_price', 'available', 'location',
+        'created', 'updated', 'sell_price', 'rating', 'likes')
+
         read_only_fields = ('id', 'slug', 'user', 'created', 'updated')
 
 
@@ -26,9 +28,7 @@ class RecallSerializer(serializers.ModelSerializer):
                         }
 
 
-
-
-class DiscountSerializer(serializers.ModelSerializer):
+class ViewedProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Discount
-        fields = ['id', 'product', 'price', 'discount_rate']
+        model = ViewedProduct
+        fields = '__all__'

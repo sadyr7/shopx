@@ -1,5 +1,5 @@
 from .FCMmanage import sendPush
-from .models import Discount,Recall
+from .models import Recall
 from rest_framework.response import Response
 from rest_framework import status
 from Shopx.celery import app
@@ -7,7 +7,7 @@ from Shopx.celery import app
 @app.task
 def send_push_notification(id, title, tokens):
 
-    instance = Discount.objects.get(pk=id)
+    instance = Recall.objects.get(pk=id)
 
     message = ''
     message += f'скидка на {instance.product.name}\n'
