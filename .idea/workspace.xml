@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2737eacb-baef-40c6-a8ed-76ab8238d8f2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shopx.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/permissions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shopx/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shopx/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/asgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shopx/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shopx/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shopx/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/migrations/0002_message_is_read_alter_chat_timestamp_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/migrations/0003_remove_chat_participants_chat_buyer_chat_seller_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/migrations/0004_supportservice.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/permissions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_chat/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_comment/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_comment/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_comment/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_comment/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_comment/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_comment/permissions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_comment/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_comment/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_comment/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_like/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_like/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_like/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_like/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_like/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_like/permissions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_like/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_like/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_like/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_support_service/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_support_service/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_support_service/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_support_service/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_support_service/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_support_service/permissions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_support_service/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_support_service/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_support_service/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/branch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firstproject-daf7e-firebase-adminsdk-rr9oq-84b213bc75.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/FCMmanage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/filters.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/manager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0002_remove_discount_discount_rate_remove_discount_price_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0003_alter_discount_options_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0004_viewedproduct.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0005_alter_viewedproduct_viewed_at.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/permissions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/tasks.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/services.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/usermanager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/validators.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profiles/views.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2czxXDqkwZ7cfUY9HVh6AJNJhqU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "beka"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-d68999036c7f-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.14475.56" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2737eacb-baef-40c6-a8ed-76ab8238d8f2" name="Changes" comment="" />
+      <created>1709128245690</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709128245690</updated>
+    </task>
+    <servers />
+  </component>
+</project>
