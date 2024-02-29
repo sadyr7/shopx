@@ -1,10 +1,12 @@
+from typing import Iterable
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.conf import settings
 from user_profiles.models import CustomUser,SellerProfile
-from datetime import timezone
 from Category.models import Category, PodCategory
-
+from notification.models import Notification
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 class Product(models.Model):
     category = models.ForeignKey(
@@ -19,8 +21,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to="products/%Y/%m/%d", blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    discount = models.PositiveIntegerField(blank=True, null=True)
-    available = models.BooleanField()
+    available = models.BooleanField(default=True)
     location = models.CharField(max_length=100, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -34,6 +35,8 @@ class Product(models.Model):
             models.Index(fields=["name"]),
             models.Index(fields=["-created"]),
         ]
+    def __str__(self):
+        return self.name
 
 
 class Recall(models.Model):
@@ -65,13 +68,37 @@ class Like(models.Model):
         verbose_name_plural = 'Лайки'
 
 
+class Discount(models.Model):
+    product = models.OneToOneField(
+        Product, related_name="discount", on_delete=models.CASCADE
+    )
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_rate = models.DecimalField(max_digits=5, decimal_places=2)
 
+    def discounted_price(self):
+        return self.price * (1 - self.discount_rate)
 
-class ViewedProduct(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    viewed = models.BooleanField()
-    viewed_at = models.DateTimeField(default=timezone)
+    def __str__(self):
+        return f"Discount for {self.product.name}"
+    
 
-    def is_recent(self):
-        return self.viewed_at >= timezone - timezone.timedelta(days=1)
+    def save(self, *args, **kwargs):
+        # Создание нового уведомления
+        message = f'название продукта {self.product.name} и название магазина {self.product.user.market_name} и владелец магазина {self.product.user.username}'
+        notification = Notification.objects.create(message=message)
+
+        # Получение всех уведомлений из базы данных
+        notifications = Notification.objects.all()
+
+        # Извлечение только атрибута "message" из каждого уведомления
+        message_list = [notif.message for notif in notifications]
+
+        # Отправка уведомлений всем клиентам в группе
+        channel_layer = get_channel_layer()
+        
+        async_to_sync(channel_layer.group_send)('notifications', {
+            'type': 'send_notification',
+            'message': message_list
+        })
+
+        super().save(*args, **kwargs)
