@@ -19,21 +19,12 @@ class Product(models.Model):
     image = models.ImageField(upload_to="products/%Y/%m/%d", blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    discount = models.IntegerField()
-    discounted_price = models.IntegerField(null=True)
-    available = models.BooleanField(default=True)
+    discount = models.PositiveIntegerField(blank=True, null=True)
+    available = models.BooleanField()
     location = models.CharField(max_length=100, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    sell_price = models.IntegerField(null=True)
 
-    @property
-    def discounted_price(self):
-        return ((self.price) * (self.discount)) / 100
-
-    @property
-    def sell_price(self):
-        return (self.price) - (self.discounted_price)
 
     class Meta:
         ordering = ["name"]

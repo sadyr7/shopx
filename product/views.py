@@ -33,16 +33,24 @@ class ProductListApiView(ListAPIView):
 
 
 # Представление для получения деталей, обновления и удаления продукта
-class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+class ProductDetailView(generics.RetrieveDestroyAPIView):
     queryset = Product.objects.all().annotate(rating=Avg("recall__rating"), likes=Count('like'))
     serializer_class = ProductSerializer
     # permission_classes = [IsSeller, ]
-    def get_object(self):
-        obj = super().get_object()
-        # Расчет скидки только для деталей продукта
-        obj.discounted_price = obj.price * obj.discount / 100
-        obj.sell_price = obj.price - obj.discounted_price
-        return obj
+
+
+class ProductUpdateApiView(generics.UpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = "id"
+
+    # permission_classes = [IsAuthenticated, ]
+
+    def perform_update(self, serializer):
+        instance = serializer.instance
+        instance.price = serializer.apply_discount_to_price(instance.price,
+                                                            serializer.validated_data.get('discount', 0))
+        instance.save()
 
 
 class RecallListApiView(ListAPIView):
