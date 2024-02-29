@@ -15,7 +15,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     surname = models.CharField(max_length= 30, verbose_name="Фамилия",null=True, blank=True)
     password = models.CharField("password",validators=[validate_password_strength], max_length=128)
     email_or_phone = models.CharField(max_length= 30,unique = True,null= True, blank=True)
-    code = models.CharField(max_length=6)
+    code = models.CharField(max_length=6, blank=True)
     created_at = models.DateField(auto_now=True)
     is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -48,9 +48,9 @@ class SellerProfile(CustomUser):
     location_latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     location_longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     instagram_link = models.URLField(null=True, blank=True)
-    whatsapp_link = models.URLField()
-    tiktok_link = models.URLField()
-    facebook_link = models.URLField()
+    whatsapp_link = models.URLField(blank=True, null=True)
+    tiktok_link = models.URLField(blank=True, null=True)
+    facebook_link = models.URLField(blank=True, null=True)
 
 
     def __str__(self) -> str:
