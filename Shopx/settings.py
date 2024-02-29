@@ -32,6 +32,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -53,7 +54,7 @@ INSTALLED_APPS = [
     "product",
     'app_like',
     "app_chat",
-    "app_support_service",
+    "websocket",
     "user_profiles"
 ]
 
@@ -99,6 +100,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "Shopx.wsgi.application"
+ASGI_APPLICATION = "Shopx.asgi.application"
 
 
 # Database
@@ -190,4 +192,13 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
     "AUTH_HEADER_TYPES": ("JWT",),
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [('0.0.0.0', 6379)],
+        },
+    },
 }

@@ -24,13 +24,14 @@ class MessageUpdateSerializer(serializers.ModelSerializer):
 
 
 class ChatSerializer(serializers.ModelSerializer):
+    unread = serializers.IntegerField(default=0, read_only=True, required=False)
 
     class Meta:
         model = Chat
         fields = '__all__'
 
 
-class ChatSellerSerializer(serializers.ModelSerializer):
+class ChatSellerSerializer(ChatSerializer):
 
     class Meta:
         model = Chat
@@ -42,7 +43,7 @@ class ChatSellerSerializer(serializers.ModelSerializer):
         return attrs
 
 
-class ChatBuyerSerializer(serializers.ModelSerializer):
+class ChatBuyerSerializer(ChatSerializer):
 
     class Meta:
         model = Chat
