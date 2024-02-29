@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # app
     "Category",
     "app_comment",
+    "app_support_service",
     "product",
     'app_like',
     "app_chat",

@@ -9,14 +9,14 @@ urlpatterns = [
 
     path("product/list/", ProductListApiView.as_view(), name="product-list"),
     path('product/create/', ProductCreateApiView.as_view(), name='product-create'),
-    path('update/product/<int:id>/', ProductUpdateApiView.as_view()),
+    # path('update/product/<int:id>/', ProductUpdateApiView.as_view()),
 
     path("product/<int:pk>/", ProductDetailView.as_view(), name="product-detail"),
     path("like/<int:pk>/", LikeView.as_view(), name="like"),
     path('recall-list/<int:pk>/', RecallListApiView.as_view(), name='recall-list'),
     path('', include(router.urls)),
-    path('viewed-products/', ViewedProductListCreate.as_view(), name='viewed-product-list'),
-    path('viewed-products/<int:pk>/', ViewedProductDetail.as_view(), name='viewed-product-detail'),
+    # path('viewed-products/', ViewedProductListCreate.as_view(), name='viewed-product-list'),
+    # path('viewed-products/<int:pk>/', ViewedProductDetail.as_view(), name='viewed-product-detail'),
 ]
 
 
