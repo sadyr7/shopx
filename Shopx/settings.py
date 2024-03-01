@@ -32,6 +32,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # lib
+    'channels',
     "twilio",
     "rest_framework",
     "rest_framework_simplejwt",
@@ -47,13 +49,15 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_yasg",
     "djoser",
+    'notification',
     # app
     "Category",
     "app_comment",
+    "app_support_service",
     "product",
     'app_like',
     "app_chat",
-    "app_support_service",
+    "websocket",
     "user_profiles"
 ]
 
@@ -98,7 +102,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "Shopx.wsgi.application"
+
+# WSGI_APPLICATION = "Shopx.wsgi.application"
+
+ASGI_APPLICATION = "Shopx.asgi.application"
 
 
 # Database
@@ -169,6 +176,9 @@ EMAIL_HOST_USER = 'tolomushev33@gmail.com'
 EMAIL_HOST_PASSWORD = 'ymiaghfkrwoelcgl'
 
 
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+
 #DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
@@ -183,8 +193,20 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20
 }
 
+
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
     "AUTH_HEADER_TYPES": ("JWT",),
+}
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+       "hosts": [("localhost", 6379)],
+        },
+    },
 }
