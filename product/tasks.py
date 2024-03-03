@@ -6,33 +6,22 @@ from Shopx.celery import app
 
 
 
-# @app.task
-# def send_push_notification(id, title, tokens):
-
-#     instance = Discount.objects.get(pk=id)
-
-#     message = ''
-#     message += f'скидка на {instance.product.name}\n'
-#     message += f'цена до {instance.price}\n'
-#     message += f'цена со скидкой {instance.discount_rate}\n'
-
-    
-#     result = sendPush(title=title,
-#                     registration_token=tokens,
-#                     msg = message
-#                     ,
-#                     )
-#     return result
-
+@app.task
+def send_notification_discount(all_tokens,instance):
+    result = sendPush(title=f'Скидка на {instance.name} цена {instance.discount}',
+                        registration_token= all_tokens,
+                        msg = "Большая скидка на продукт"
+                        ,
+                        )
 
 
 @app.task
-def send_push_notification_recall(title, tokens):
+def send_push_notification_recall(title, whom):
     message = 'Отзыв'
 
     
     result = sendPush(title=title,
-                    registration_token=tokens.split(),
+                    registration_token=whom.split(),
                     msg = message
                     ,
                     )

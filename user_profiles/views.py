@@ -17,7 +17,28 @@ class SellerRegisterView(CreateUserApiView):
     serializer_class = SellerRegisterSerializer
 
 
+class UserLoginView(generics.CreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = LoginSerializer
 
+    def post(self, request, *args, **kwargs):
+        email_or_phone = request.data.get('email_or_phone')
+        try:
+            user = CustomUser.objects.get(email_or_phone=email_or_phone)
+        except CustomUser.DoesNotExist:
+            return Response('The user does not exist')
+        
+        refresh = RefreshToken.for_user(user=user)
+        access_token = refresh.access_token
+        return Response({
+            'detail': 'Successfully confirmed your code',
+            'id': user.id,
+            'email': user.email_or_phone,
+            'refresh-token': str(refresh),
+            'access': str(access_token),
+            'refresh_lifetime_days': refresh.lifetime.days,
+            'access_lifetime_seconds': access_token.token.lifetime.total_seconds()
+        })
 
 # апи который проверяет код который был отправлен на указанный email и в ответ передает токен
 class UserVerifyRegisterCode(generics.UpdateAPIView):

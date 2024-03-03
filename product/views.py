@@ -46,6 +46,7 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
         instance.save()
 
 
+# Представление для получения деталей, обновления и удаления продукта
 
 class RecallListApiView(ListAPIView):
     serializer_class = RecallSerializer
