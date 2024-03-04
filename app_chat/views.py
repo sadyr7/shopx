@@ -10,7 +10,7 @@ from django.db.models import Q, Count
 
 class ChatViewSet(GenericViewSet):
     serializer_class = ChatSerializer
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, ) 
     queryset = Chat.objects.all()
 
     def list(self, request, *args, **kwargs):
