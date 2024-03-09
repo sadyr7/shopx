@@ -44,10 +44,10 @@ class ProductListApiView(ListAPIView):
         methods=['get'],
         detail=False,
         url_path='profile',
-        serializer_class=,
+        serializer_class=None,
         permission_classes=[AllowAny]
     )
-    
+
 
     # def get(self, request):
     #     recent_words = cache.get('recent_words')
