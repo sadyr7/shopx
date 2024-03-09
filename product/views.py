@@ -13,6 +13,10 @@ from .filters import CustomFilter
 from datetime import datetime
 from rest_framework import permissions
 from .tasks import send_push_notification_recall
+from Shopx.settings import REDIS_TIMEOUT
+from django.core.cache import cache
+from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 
 
 
@@ -32,6 +36,27 @@ class ProductListApiView(ListAPIView):
     filterset_class = CustomFilter
     search_fields = ["name", "description"]
     ordering_fields = ["name", "price"]
+
+    def HistorySearch(self):
+        pass
+
+    @action(
+        methods=['get'],
+        detail=False,
+        url_path='profile',
+        serializer_class=,
+        permission_classes=[AllowAny]
+    )
+    
+
+    # def get(self, request):
+    #     recent_words = cache.get('recent_words')
+    #     if not recent_words:
+    #         recent_words = Product.objects.order_by('-created_at')[:10]  
+    #         cache.set('recent_words', recent_words, REDIS_TIMEOUT)
+    #     serializer = ProductSerializer(recent_words, many=True)
+    #     return Response(serializer.data)
+
 
 
 # Представление для получения деталей, обновления и удаления продукта
