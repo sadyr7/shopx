@@ -37,7 +37,7 @@ class UserLoginView(generics.CreateAPIView):
             'refresh-token': str(refresh),
             'access': str(access_token),
             'refresh_lifetime_days': refresh.lifetime.days,
-            'access_lifetime_seconds': access_token.token.lifetime.total_seconds()
+            'access_lifetime_seconds': access_token.lifetime.total_seconds()
         })
 
 # апи который проверяет код который был отправлен на указанный email и в ответ передает токен
